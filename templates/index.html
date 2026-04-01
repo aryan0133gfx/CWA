@@ -1,28 +1,53 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>invisible-queue</title>
+    <title>Hospital Triage</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
 </head>
 <body>
-    <div style="background-color: black; color: white; text-align: center; height: max-content;">
-        <h1>ADYPG MULTISPECIALITY HOSPITAL</h1>
-    </div>
-    <div class="form">
-        <input type="text" placeholder="patient name" id="name">
 
-        <input type="number" placeholder="patient age" id="age">
+<h1>ADYPG MULTISPECIALITY HOSPITAL</h1>
 
-        <input type="text" placeholder="symptom" id="symptom">
+<form method="POST">
+    <input type="text" name="name" placeholder="patient name"><br><br>
+    <input type="number" name="age" placeholder="patient age"><br><br>
+    <select name="symptom">
+    <option value="">Select Symptom</option>
+    <option value="chest pain">Chest Pain</option>
+    <option value="breathing problem">Breathing Problem</option>
+    <option value="fever">Fever</option>
+    <option value="vomiting">Vomiting</option>
+    <option value="dizziness">Dizziness</option>
+    <option value="cold">Cold</option>
+    <option value="headache">Headache</option>
+</select>
+    <br><br>
+    <input type="number" name="severity" placeholder="condition (1-10)"><br><br>
+    <input type="number" name="duration" placeholder="duration"><br><br>
 
-        <input type="text" placeholder="Condition" id="severity">
+    <button type="submit">Submit</button>
+</form>
 
-        <input type="text" placeholder="Duration" id="Duration">
-        <div>
-            <button type="submit">Submit</button>
-        </div>
-    </div>
+<h2>Queue</h2>
+
+<ul>
+{% for p in patients %}
+    <li>
+        {{ p.name }} - Priority {{ p.priority }} - {{ p.reason }}
+    </li>
+{% endfor %}
+</ul>
+<h2>Doctors Directory</h2>
+<div class="docs">
+    <ul>
+        <li>Dr.Ajeenkya Pawar</li>
+        <li>Dr.Suman Jadhav</li>
+        <li>Dr.Aaditi mestry</li>
+        <li>Dr.Chandan Pardeshi</li>
+        <li>Dr.Manisha Pardeshi</li>
+        <li>Dr.Balaji Rupnar</li>
+    </ul>
+</div>
+
 </body>
 </html>
