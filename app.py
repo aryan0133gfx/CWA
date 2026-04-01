@@ -10,30 +10,25 @@ def get_priority(age, symptom, severity, duration):
     duration = int(duration)
     symptom = symptom.lower()
 
-    if symptom in ["chest pain", "heart pain"]:
-        return 3, "Critical: chest pain, Dr.Ajjenkya pawar,Cardiologist"
+    if symptom in ["chest pain"]:
+        return 3, "Emergency", "Dr.Ajeenkya Pawar,Cardiologist"
 
-    if symptom in ["breathing problem", "shortness of breath"]:
-        return 3, "Critical: breathing issue, Dr.Suman Jadhav,Pulmonologist"
+    if symptom in ["breathing problem"]:
+        return 3, "Emergency", "Dr.chandan pardeshi,Pulmonologist"
 
     if severity >= 8:
-        return 3, "High severity, ICU Recomandation"
-    
-    if age < 8:
-        return 3, "Emergency, Dr.Aaditi Mestry,Pediatrician"
+        return 3, "Emergency", "Dr.Aaditi Mestry, Emergency Specialist"
 
-    if symptom in ["fever"] and duration > 3:
-        return 2, "Prolonged fever,Dr.Chandan Pardeshi,General physician"
+    if symptom == "fever" and duration > 3:
+        return 2, "Urgent", "Dr.Manisha Pardeshi, General Physician"
 
     if symptom in ["vomiting", "dizziness"]:
-        return 2, "Moderate risk symptoms,Dr.Manisha Pardeshi,General physician"
+        return 2, "Urgent", "Dr.Suman Jadhav, General Physician"
 
     if age > 60 and severity > 5:
-        return 2, "Age risk, Dr.Balaji Rupnar,Geriatrician"
-    
-    
+        return 2, "Urgent", "Dr.Balaji Rupnar, Geriatric Specialist"
 
-    return 1, "Stable condition, OPD Recomadition"
+    return 1, "Normal", "Dr.Rahul More, General Physician"
 
 @app.route("/", methods=["GET", "POST"])
 def home():
@@ -43,14 +38,15 @@ def home():
         symptom = request.form["symptom"]
         severity = request.form["severity"]
         duration = request.form["duration"]
-
-        priority, reason = get_priority(age, symptom, severity, duration)
+        
+        priority, level, doctor = get_priority(age, symptom, severity, duration)
 
         patient = {
             "name": name,
             "priority": priority,
-            "reason": reason
-        }
+            "level": level,
+            "doctor": doctor
+}
 
         patients.append(patient)
         patients.sort(key=lambda x: x["priority"], reverse=True)
